@@ -13,7 +13,7 @@ class ExploreScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: const Center(
-        child: Text('Explore Screen — coming soon'),
+        child: Text('Explore Screen tba'),
       ),
     );
   }

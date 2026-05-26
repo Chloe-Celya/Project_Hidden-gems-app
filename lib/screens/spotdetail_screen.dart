@@ -13,7 +13,7 @@ class SpotDetailScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: const Center(
-        child: Text('Spot Detail — coming soon'),
+        child: Text('Spot Detail tba'),
       ),
     );
   }

@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: const Center(
-        child: Text('Home Screen — coming soon'),
+        child: Text('Home Screen Tba'),
       ),
     );
   }

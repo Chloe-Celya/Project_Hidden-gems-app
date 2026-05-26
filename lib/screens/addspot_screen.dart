@@ -13,7 +13,7 @@ class AddSpotScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: const Center(
-        child: Text('Add Spot Screen — coming soon'),
+        child: Text('Add Spot Screen  Tba'),
       ),
     );
   }
