@@ -1,0 +1,128 @@
+@startuml
+set namespaceSeparator ::
+
+class "final_project::firebase_options.dart::DefaultFirebaseOptions" {
+  {static} +FirebaseOptions web
+  {static} +FirebaseOptions android
+  {static} +FirebaseOptions ios
+  {static} +FirebaseOptions macos
+  {static} +FirebaseOptions windows
+  {static} +FirebaseOptions currentPlatform
+}
+
+"final_project::firebase_options.dart::DefaultFirebaseOptions" o-- "firebase_core_platform_interface::firebase_core_platform_interface.dart::FirebaseOptions"
+
+class "final_project::main.dart::WanderBuddyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_project::main.dart::WanderBuddyApp"
+
+class "final_project::screens::addspot_screen.dart::AddSpotScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_project::screens::addspot_screen.dart::AddSpotScreen"
+
+class "final_project::screens::auth::login_screen.dart::LoginScreen" {
+  +State<LoginScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_project::screens::auth::login_screen.dart::LoginScreen"
+
+class "final_project::screens::auth::login_screen.dart::_LoginScreenState" {
+  -TextEditingController _emailCtrl
+  -TextEditingController _passCtrl
+  -AuthService _auth
+  -bool _loading
+  -bool _obscure
+  -dynamic _login()
+  -void _showError()
+  +void dispose()
+  +Widget build()
+  -InputDecoration _inputDecor()
+}
+
+"final_project::screens::auth::login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"final_project::screens::auth::login_screen.dart::_LoginScreenState" o-- "final_project::services::auth_service.dart::AuthService"
+"flutter::src::widgets::framework.dart::State" <|-- "final_project::screens::auth::login_screen.dart::_LoginScreenState"
+
+class "final_project::screens::auth::regis_screen.dart::RegisterScreen" {
+  +State<RegisterScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_project::screens::auth::regis_screen.dart::RegisterScreen"
+
+class "final_project::screens::auth::regis_screen.dart::_RegisterScreenState" {
+  -TextEditingController _nameCtrl
+  -TextEditingController _emailCtrl
+  -TextEditingController _passCtrl
+  -AuthService _auth
+  -bool _loading
+  -bool _obscure
+  -dynamic _register()
+  -void _showError()
+  +void dispose()
+  +Widget build()
+  -InputDecoration _inputDecor()
+}
+
+"final_project::screens::auth::regis_screen.dart::_RegisterScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"final_project::screens::auth::regis_screen.dart::_RegisterScreenState" o-- "final_project::services::auth_service.dart::AuthService"
+"flutter::src::widgets::framework.dart::State" <|-- "final_project::screens::auth::regis_screen.dart::_RegisterScreenState"
+
+class "final_project::screens::explore_screen.dart::ExploreScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_project::screens::explore_screen.dart::ExploreScreen"
+
+class "final_project::screens::home_screen.dart::HomeScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_project::screens::home_screen.dart::HomeScreen"
+
+class "final_project::screens::profile_screen.dart::ProfileScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_project::screens::profile_screen.dart::ProfileScreen"
+
+class "final_project::screens::spotdetail_screen.dart::SpotDetailScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_project::screens::spotdetail_screen.dart::SpotDetailScreen"
+
+class "final_project::services::auth_service.dart::AuthService" {
+  -FirebaseAuth _auth
+  -FirebaseFirestore _db
+  +User? currentUser
+  +Stream<User?> authStateChanges
+  +dynamic register()
+  +dynamic login()
+  +dynamic logout()
+}
+
+"final_project::services::auth_service.dart::AuthService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"final_project::services::auth_service.dart::AuthService" o-- "cloud_firestore::cloud_firestore.dart::FirebaseFirestore"
+"final_project::services::auth_service.dart::AuthService" o-- "firebase_auth::firebase_auth.dart::User"
+"final_project::services::auth_service.dart::AuthService" o-- "dart::async::Stream<User>"
+
+class "final_project::widgets::navbar.dart::MainScreen" {
+  +State<MainScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_project::widgets::navbar.dart::MainScreen"
+
+class "final_project::widgets::navbar.dart::_MainScreenState" {
+  -int _currentIndex
+  -List<Widget> _screens
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "final_project::widgets::navbar.dart::_MainScreenState"
+
+
+@enduml
