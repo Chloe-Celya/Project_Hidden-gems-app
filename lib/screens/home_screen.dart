@@ -17,11 +17,9 @@ class HomeScreen extends StatelessWidget {
         foregroundColor: const Color.fromARGB(255, 241, 233, 233),
         elevation: 0,
       ),
-
       body: StreamBuilder<List<Spot>>(
         stream: spotService.getSpots(),
         builder: (context, snapshot) {
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -50,41 +48,55 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             itemCount: spots.length,
             itemBuilder: (context, index) {
-
               final spot = spots[index];
 
               return Card(
                 elevation: 2,
                 margin: const EdgeInsets.only(bottom: 12),
-
                 child: ListTile(
                   leading: const Icon(
                     Icons.place,
                     color: Color.fromARGB(255, 102, 207, 153),
                   ),
-
                   title: Text(
                     spot.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 4),
-
                       Text(
                         spot.category,
                       ),
-
                       const SizedBox(height: 4),
-
                       Text(
                         spot.description,
                       ),
                     ],
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () async {
+                      await spotService.deleteSpot(
+                        spot.id,
+                      );
+
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Spot deleted',
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
               );
