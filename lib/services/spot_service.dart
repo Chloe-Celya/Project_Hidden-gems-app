@@ -25,6 +25,12 @@ class SpotService {
     );
   }
 
+  Future<void> updateSpot(Spot spot) async {
+  await _db.collection(collection).doc(spot.id).update(
+    spot.toFirestore(),
+  );
+}
+
   Future<void> deleteSpot(String id) async {
     await _db.collection(collection).doc(id).delete();
   }

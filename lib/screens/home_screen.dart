@@ -68,35 +68,49 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 4),
-                      Text(
-                        spot.category,
-                      ),
+                      Text(spot.category),
                       const SizedBox(height: 4),
-                      Text(
-                        spot.description,
-                      ),
+                      Text(spot.description),
                     ],
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () async {
-                      await spotService.deleteSpot(
-                        spot.id,
-                      );
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Color.fromARGB(255, 100, 51, 5),
+                        ),
+                        onPressed: () {
+                          showEditDialog(
+                            context,
+                            spot,
+                            spotService,
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Color.fromARGB(255, 37, 6, 3),
+                        ),
+                        onPressed: () async {
+                          await spotService.deleteSpot(
+                            spot.id,
+                          );
 
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Spot deleted',
-                            ),
-                          ),
-                        );
-                      }
-                    },
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Spot deleted',
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -106,4 +120,87 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> showEditDialog(
+  BuildContext context,
+  Spot spot,
+  SpotService spotService,
+) async {
+  final nameController =
+      TextEditingController(text: spot.name);
+
+  final descriptionController =
+      TextEditingController(text: spot.description);
+
+  final categoryController =
+      TextEditingController(text: spot.category);
+
+  await showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text(
+          'Edit Spot',
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                ),
+              ),
+              TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                ),
+              ),
+              TextField(
+                controller: categoryController,
+                decoration: const InputDecoration(
+                  labelText: 'Category',
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(
+              'Cancel',
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final updatedSpot = Spot(
+                id: spot.id,
+                name: nameController.text,
+                description: descriptionController.text,
+                category: categoryController.text,
+                createdBy: spot.createdBy,
+              );
+
+              await spotService.updateSpot(
+                updatedSpot,
+              );
+
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
+            },
+            child: const Text(
+              'Save',
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
