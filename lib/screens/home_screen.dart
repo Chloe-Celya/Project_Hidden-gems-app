@@ -58,12 +58,14 @@ class HomeScreen extends StatelessWidget {
                     Icons.place,
                     color: Color.fromARGB(255, 102, 207, 153),
                   ),
+
                   title: Text(
                     spot.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -73,6 +75,7 @@ class HomeScreen extends StatelessWidget {
                       Text(spot.description),
                     ],
                   ),
+
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -81,6 +84,7 @@ class HomeScreen extends StatelessWidget {
                           Icons.edit,
                           color: Color.fromARGB(255, 100, 51, 5),
                         ),
+
                         onPressed: () {
                           showEditDialog(
                             context,
@@ -89,6 +93,7 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                       ),
+
                       IconButton(
                         icon: const Icon(
                           Icons.delete,
@@ -143,6 +148,7 @@ Future<void> showEditDialog(
         title: const Text(
           'Edit Spot',
         ),
+
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -153,12 +159,14 @@ Future<void> showEditDialog(
                   labelText: 'Name',
                 ),
               ),
+
               TextField(
                 controller: descriptionController,
                 decoration: const InputDecoration(
                   labelText: 'Description',
                 ),
               ),
+
               TextField(
                 controller: categoryController,
                 decoration: const InputDecoration(
@@ -168,6 +176,7 @@ Future<void> showEditDialog(
             ],
           ),
         ),
+
         actions: [
           TextButton(
             onPressed: () {
@@ -177,6 +186,7 @@ Future<void> showEditDialog(
               'Cancel',
             ),
           ),
+
           ElevatedButton(
             onPressed: () async {
               final updatedSpot = Spot(
@@ -187,13 +197,15 @@ Future<void> showEditDialog(
                 createdBy: spot.createdBy,
               );
 
+              //fermeture dialog avec modif'
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
               await spotService.updateSpot(
                 updatedSpot,
               );
 
-              if (context.mounted) {
-                Navigator.pop(context);
-              }
+              
             },
             child: const Text(
               'Save',
