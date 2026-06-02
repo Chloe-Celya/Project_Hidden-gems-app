@@ -8,11 +8,11 @@ import 'widgets/navbar.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const WanderBuddyApp());
+  runApp(const WhisperMapApp());
 }
 
-class WanderBuddyApp extends StatelessWidget {
-  const WanderBuddyApp({super.key});
+class WhisperMapApp extends StatelessWidget {
+  const WhisperMapApp({super.key});
 
   @override
   Widget build(BuildContext context) {
