@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
 import '../screens/explore_screen.dart';
 import '../screens/addspot_screen.dart';
+import '../screens/bookmarks_screen.dart';
 import '../screens/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const ExploreScreen(),
     const AddSpotScreen(),
+    const BookmarksScreen(),
     const ProfileScreen(),
   ];
 
@@ -35,6 +37,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.explore_outlined), label: 'Explore'),
           BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline), label: 'Add Spot'),
+          BottomNavigationBarItem(icon: Icon(Icons.bookmark_outline), label: 'Saved Spots'),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
         ],
       ),
