@@ -5,8 +5,8 @@ class Spot {
   final String name;
   final String description;
   final String category;
-  final String createdBy;      // userId
-  final String authorName;     // display name
+  final String createdBy;      
+  final String authorName;     
   final DateTime? createdAt;
 
   Spot({
