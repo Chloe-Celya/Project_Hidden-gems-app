@@ -38,7 +38,7 @@ class SpotDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Reviews section
+          
             ReviewsSection(
               spotId: spotId,
               spotOwnerId: spotOwnerId,
