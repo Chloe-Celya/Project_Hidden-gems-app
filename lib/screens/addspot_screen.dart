@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../models/spot.dart';
 import '../services/spot_service.dart';
 
 class AddSpotScreen extends StatefulWidget {
@@ -22,41 +19,28 @@ class _AddSpotScreenState extends State<AddSpotScreen> {
 
   bool isLoading = false;
 
-  Future<void> saveSpot() async {
-    if (!_formKey.currentState!.validate()) return;
+Future<void> saveSpot() async {
+  if (!_formKey.currentState!.validate()) return;
 
-    setState(() {
-      isLoading = true;
-    });
+  setState(() => isLoading = true);
 
-    final user = FirebaseAuth.instance.currentUser;
+  await _spotService.addSpot(
+    name: _nameController.text.trim(),
+    description: _descriptionController.text.trim(),
+    category: _categoryController.text.trim(),
+  );
 
-    final spot = Spot(
-      id: '',
-      name: _nameController.text.trim(),
-      description: _descriptionController.text.trim(),
-      category: _categoryController.text.trim(),
-      createdBy: user?.uid ?? '',
+  if (mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Spot added successfully')),
     );
-
-    await _spotService.addSpot(spot);
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Spot added successfully'),
-        ),
-      );
-
-      _nameController.clear();
-      _descriptionController.clear();
-      _categoryController.clear();
-    }
-
-    setState(() {
-      isLoading = false;
-    });
+    _nameController.clear();
+    _descriptionController.clear();
+    _categoryController.clear();
   }
+
+  setState(() => isLoading = false);
+}
 
   @override
   void dispose() {
