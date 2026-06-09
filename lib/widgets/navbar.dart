@@ -35,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.explore_outlined), label: 'Explore'),
           BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline), label: 'Add Spot'),
           BottomNavigationBarItem(icon: Icon(Icons.bookmark_outline), label: 'Saved Spots'),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
