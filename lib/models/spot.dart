@@ -5,9 +5,13 @@ class Spot {
   final String name;
   final String description;
   final String category;
-  final String createdBy;      
-  final String authorName;     
+  final String createdBy;
+  final String authorName;
   final DateTime? createdAt;
+
+  // Google Maps coordination = important!
+  final double latitude;
+  final double longitude;
 
   Spot({
     required this.id,
@@ -17,9 +21,16 @@ class Spot {
     required this.createdBy,
     this.authorName = 'Anonymous',
     this.createdAt,
+
+    // Google Maps mais à changer pour que toute donnée soit récupérée automatiquement
+    this.latitude = -7.2575,
+    this.longitude = 112.7521,
   });
 
-  factory Spot.fromFirestore(Map<String, dynamic> data, String documentId) {
+  factory Spot.fromFirestore(
+    Map<String, dynamic> data,
+    String documentId,
+  ) {
     return Spot(
       id: documentId,
       name: data['name'] ?? '',
@@ -28,6 +39,9 @@ class Spot {
       createdBy: data['createdBy'] ?? '',
       authorName: data['authorName'] ?? 'Anonymous',
       createdAt: (data['createdAt'] as Timestamp?)?.toDate(),
+
+      latitude: (data['latitude'] ?? -7.2575).toDouble(),
+      longitude: (data['longitude'] ?? 112.7521).toDouble(),
     );
   }
 
@@ -39,6 +53,10 @@ class Spot {
       'createdBy': createdBy,
       'authorName': authorName,
       'createdAt': FieldValue.serverTimestamp(),
+
+      // Google Maps
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 }
