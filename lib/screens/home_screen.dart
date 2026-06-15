@@ -195,7 +195,7 @@ Future<void> showEditDialog(
   final descriptionController =
       TextEditingController(text: spot.description);
   final categoryController = TextEditingController(text: spot.category);
-
+  final ageController = TextEditingController(text: spot.age);
   await showDialog(
     context: context,
     builder: (context) {
@@ -234,6 +234,15 @@ Future<void> showEditDialog(
                       borderRadius: BorderRadius.circular(10)),
                 ),
               ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: ageController,
+                decoration: InputDecoration(
+                  labelText: 'Age',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
             ],
           ),
         ),
@@ -249,6 +258,7 @@ Future<void> showEditDialog(
                 name: nameController.text.trim(),
                 description: descriptionController.text.trim(),
                 category: categoryController.text.trim(),
+                age: ageController.text.trim(),
                 createdBy: spot.createdBy,
                 authorName: spot.authorName,
               );

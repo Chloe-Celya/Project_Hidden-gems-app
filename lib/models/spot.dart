@@ -5,11 +5,16 @@ class Spot {
   final String name;
   final String description;
   final String category;
+  final String age;
+
+  // Cloudinary image URL
+  final String imageUrl;
+
   final String createdBy;
   final String authorName;
   final DateTime? createdAt;
 
-  // Google Maps coordination = important!
+  // Google Maps coordinates
   final double latitude;
   final double longitude;
 
@@ -18,11 +23,16 @@ class Spot {
     required this.name,
     required this.description,
     required this.category,
+    required this.age,
+
+    // Cloudinary
+    this.imageUrl = '',
+
     required this.createdBy,
     this.authorName = 'Anonymous',
     this.createdAt,
 
-    // Google Maps mais à changer pour que toute donnée soit récupérée automatiquement
+    // Google Maps
     this.latitude = -7.2575,
     this.longitude = 112.7521,
   });
@@ -36,6 +46,11 @@ class Spot {
       name: data['name'] ?? '',
       description: data['description'] ?? '',
       category: data['category'] ?? '',
+      age: data['age'] ?? '',
+
+      // Cloudinary
+      imageUrl: data['imageUrl'] ?? '',
+
       createdBy: data['createdBy'] ?? '',
       authorName: data['authorName'] ?? 'Anonymous',
       createdAt: (data['createdAt'] as Timestamp?)?.toDate(),
@@ -50,6 +65,11 @@ class Spot {
       'name': name,
       'description': description,
       'category': category,
+      'age': age,
+
+      // Cloudinary
+      'imageUrl': imageUrl,
+
       'createdBy': createdBy,
       'authorName': authorName,
       'createdAt': FieldValue.serverTimestamp(),
