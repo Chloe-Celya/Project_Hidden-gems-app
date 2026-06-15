@@ -17,6 +17,8 @@ class SpotService {
     required String name,
     required String description,
     required String category,
+    required String age,
+    required String imageUrl,
     required double latitude,
     required double longitude,
   }) async {
@@ -27,6 +29,8 @@ class SpotService {
       name: name,
       description: description,
       category: category,
+      age: age,
+      imageUrl: imageUrl,
       createdBy: user.uid,
       authorName:
           user.displayName ?? 'Anonymous',
@@ -71,6 +75,8 @@ class SpotService {
       'name': spot.name,
       'description': spot.description,
       'category': spot.category,
+      'age': spot.age,
+      'imageUrl': spot.imageUrl,
       'latitude': spot.latitude,
       'longitude': spot.longitude,
     });

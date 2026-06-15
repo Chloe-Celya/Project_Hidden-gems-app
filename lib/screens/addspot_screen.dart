@@ -24,6 +24,9 @@ class _AddSpotScreenState
   final _categoryController =
       TextEditingController();
 
+  final _ageController =
+      TextEditingController();
+
   final SpotService _spotService =
       SpotService();
 
@@ -62,6 +65,9 @@ class _AddSpotScreenState
           _descriptionController.text.trim(),
       category:
           _categoryController.text.trim(),
+      age: 
+          _ageController.text.trim(),
+      imageUrl: '',
       latitude:
           selectedLocation!.latitude,
       longitude:
@@ -69,14 +75,6 @@ class _AddSpotScreenState
     );
 
     if (!mounted) return;
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(
-      const SnackBar(
-        content:
-            Text('Spot added successfully'),
-      ),
-    );
 
     Navigator.pop(context);
   }
@@ -86,6 +84,7 @@ class _AddSpotScreenState
     _nameController.dispose();
     _descriptionController.dispose();
     _categoryController.dispose();
+    _ageController.dispose();
     super.dispose();
   }
 
@@ -167,6 +166,25 @@ class _AddSpotScreenState
                   if (value == null ||
                       value.isEmpty) {
                     return 'Please enter a category';
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(
+                  height: 16),
+
+              TextFormField(
+                controller:
+                    _ageController,
+                decoration:
+                    const InputDecoration(
+                  labelText: 'Age',
+                ),
+                validator: (value) {
+                  if (value == null ||
+                      value.isEmpty) {
+                    return 'Please enter an age';
                   }
                   return null;
                 },
