@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'notification_service.dart';
 
 class BookmarkedSpot {
   final String spotId;
@@ -42,6 +43,8 @@ class BookmarksService {
       (s) => s.spotId == spot.spotId,
     );
 
+    final wasAdded = index < 0;
+
     if (index >= 0) {
       current.removeAt(index);
     } else {
@@ -49,5 +52,12 @@ class BookmarksService {
     }
 
     bookmarks.value = current;
+
+    NotificationService.instance.onBookmarkToggled(
+      spotId: spot.spotId,
+      spotName: spot.spotName,
+      ownerId: spot.spotOwnerId,
+      wasAdded: wasAdded,
+    );
   }
 }
