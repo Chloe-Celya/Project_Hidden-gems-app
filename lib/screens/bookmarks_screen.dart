@@ -72,6 +72,7 @@ class BookmarksScreen extends StatelessWidget {
                       spotOwnerId: spot.spotOwnerId,
                       latitude: spot.latitude,
                       longitude: spot.longitude,
+                      imageUrl: '',
                     ),
                   ),
                 ),

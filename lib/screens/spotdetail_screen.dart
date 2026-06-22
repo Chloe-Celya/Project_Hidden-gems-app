@@ -12,6 +12,8 @@ class SpotDetailScreen extends StatefulWidget {
   final double latitude;
   final double longitude;
 
+  final String imageUrl;
+
   const SpotDetailScreen({
     super.key,
     required this.spotId,
@@ -19,13 +21,16 @@ class SpotDetailScreen extends StatefulWidget {
     required this.spotOwnerId,
     required this.latitude,
     required this.longitude,
+    required this.imageUrl,
   });
 
   @override
-  State<SpotDetailScreen> createState() => _SpotDetailScreenState();
+  State<SpotDetailScreen> createState() =>
+      _SpotDetailScreenState();
 }
 
-class _SpotDetailScreenState extends State<SpotDetailScreen> {
+class _SpotDetailScreenState
+    extends State<SpotDetailScreen> {
   final _bookmarks = BookmarksService.instance;
 
   bool get _isBookmarked =>
@@ -88,6 +93,21 @@ class _SpotDetailScreenState extends State<SpotDetailScreen> {
               crossAxisAlignment:
                   CrossAxisAlignment.start,
               children: [
+                if (widget.imageUrl.isNotEmpty)
+                  ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(12),
+                    child: Image.network(
+                      widget.imageUrl,
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+
+                if (widget.imageUrl.isNotEmpty)
+                  const SizedBox(height: 16),
+
                 SizedBox(
                   height: 200,
                   child: ClipRRect(

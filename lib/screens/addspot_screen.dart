@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../services/spot_service.dart';
+import 'package:image_picker/image_picker.dart';
+import '../services/cloudinary_service.dart';
+import 'dart:io';
 
 class AddSpotScreen extends StatefulWidget {
   const AddSpotScreen({super.key});
@@ -40,6 +42,25 @@ class _AddSpotScreenState
     112.7521,
   );
 
+  final CloudinaryService _cloudinaryService =
+      CloudinaryService();
+  File? selectedImage;
+  final ImagePicker _picker =
+      ImagePicker();
+
+  Future<void> pickImage() async {
+    final XFile? image =
+        await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (image != null) {
+      setState(() {
+        selectedImage = File(image.path);
+      });
+    }
+  }
+
   Future<void> saveSpot() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -59,6 +80,14 @@ class _AddSpotScreenState
 
     setState(() => isLoading = true);
 
+    String imageUrl = '';
+    if (selectedImage != null) {
+      final uploadedUrl = await _cloudinaryService.uploadImage(selectedImage!);
+      if (uploadedUrl != null) {
+        imageUrl = uploadedUrl;
+      }
+    }
+
     await _spotService.addSpot(
       name: _nameController.text.trim(),
       description:
@@ -67,7 +96,7 @@ class _AddSpotScreenState
           _categoryController.text.trim(),
       age: 
           _ageController.text.trim(),
-      imageUrl: '',
+      imageUrl: imageUrl,
       latitude:
           selectedLocation!.latitude,
       longitude:
@@ -192,6 +221,23 @@ class _AddSpotScreenState
 
               const SizedBox(
                   height: 24),
+              
+              ElevatedButton.icon(
+                onPressed:pickImage,
+                icon: const Icon(Icons.image),
+                label: const Text('Choose Image'),
+              ),
+              const SizedBox(height: 16),
+              if (selectedImage != null)
+                Column(
+                  children: [
+                    Image.file(
+                      selectedImage!,
+                      height: 200,
+                    ),
+                    const SizedBox(height: 16)
+                  ],
+                ),
 
               const Align(
                 alignment:

@@ -62,6 +62,7 @@ class HomeScreen extends StatelessWidget {
                         spotOwnerId: spot.createdBy,
                         latitude: spot.latitude,
                         longitude: spot.longitude,
+                        imageUrl: spot.imageUrl,
                       ),
                     ),
                   );
